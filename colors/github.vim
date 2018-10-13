@@ -82,17 +82,17 @@ endfunction
 
 let s:colors = {}
 
-let s:colors.base0          = { 'gui': '#24292e', 'cterm': 0   } " github text fg
-let s:colors.base1          = { 'gui': '#41484f', 'cterm': 61  } " lightened from 0
-let s:colors.base2          = { 'gui': '#6a737d', 'cterm': 246 } " comment
-let s:colors.base3          = { 'gui': '#76787b', 'cterm': 246 } " github linenr darker
+let s:colors.base0          = { 'gui': '#24292e', 'cterm': 235 } " github text fg
+let s:colors.base1          = { 'gui': '#41484f', 'cterm': 238 } " lightened from 0
+let s:colors.base2          = { 'gui': '#6a737d', 'cterm': 243 } " comment
+let s:colors.base3          = { 'gui': '#76787b', 'cterm': 243 } " github linenr darker
 let s:colors.base_35        = { 'gui': '#979797', 'cterm': 246 } " github linenr darker
-let s:colors.base4          = { 'gui': '#babbbc', 'cterm': 246 } " github linenr lighter
-let s:colors.base5          = { 'gui': '#dddddd', 'cterm': 246 } "
-let s:colors.base6          = { 'gui': '#ebeced', 'cterm': 246 } " 
-let s:colors.base7          = { 'gui': '#f6f8fa', 'cterm': 255 } " github inline code block bg
-let s:colors.base8          = { 'gui': '#fafbfc', 'cterm': 246 } " github generic light
-let s:colors.white          = { 'gui': '#ffffff', 'cterm': 255 } "
+let s:colors.base4          = { 'gui': '#babbbc', 'cterm': 250 } " github linenr lighter
+let s:colors.base5          = { 'gui': '#dddddd', 'cterm': 253 } "
+let s:colors.base6          = { 'gui': '#ebeced', 'cterm': 255 } " 
+let s:colors.base7          = { 'gui': '#f6f8fa', 'cterm': 231 } " github inline code block bg
+let s:colors.base8          = { 'gui': '#fafbfc', 'cterm': 231 } " github generic light
+let s:colors.white          = { 'gui': '#ffffff', 'cterm': 231 } "
 
 if g:github_colors_soft == 1
     let s:colors.bg         = s:colors.base7
@@ -108,23 +108,23 @@ else
     let s:colors.gutterfg   = s:colors.base4
 endif
 
-let s:colors.red            = { 'gui': '#d73a49', 'cterm': 1   } " github syntax
-let s:colors.darkred        = { 'gui': '#b31d28', 'cterm': 1   } " github syntax
-let s:colors.orange         = { 'gui': '#e36209', 'cterm': 9   } " github syntax
-let s:colors.purple         = { 'gui': '#6f42c1', 'cterm': 5   } " github syntax
-let s:colors.darkpurple     = { 'gui': '#352650', 'cterm': 5   } " ^- darkened
-let s:colors.blue           = { 'gui': '#005cc5', 'cterm': 4   } " github syntax
-let s:colors.darkblue       = { 'gui': '#032f62', 'cterm': 2   } " ^- darkened
-let s:colors.yellow         = { 'gui': '#ffffc5', 'cterm': 228 } " github search
-let s:colors.green          = { 'gui': '#22863a', 'cterm': 2   } " github syntax (html)
-let s:colors.lightgreen     = { 'gui': '#e6ffed', 'cterm': 123 } " github diff
-let s:colors.lightred       = { 'gui': '#ffeef0', 'cterm': 123 } " github diff
-let s:colors.lightorange_nr = { 'gui': '#fff5b1', 'cterm': 123 } " github selected line number column
-let s:colors.lightorange    = { 'gui': '#fffbdd', 'cterm': 123 } " github selected line
-let s:colors.difftext       = { 'gui': '#f2e496', 'cterm': 123 } " ^- darkened
-let s:colors.lightblue      = { 'gui': '#f1f8ff', 'cterm': 123 } " github diff folds
-let s:colors.visualblue     = { 'gui': '#e4effb', 'cterm': 123 } " ^- darkened
-let s:colors.medblue        = { 'gui': '#b2ceec', 'cterm': 123 } " ^- darkened
+let s:colors.red            = { 'gui': '#d73a49', 'cterm': 167 } " github syntax
+let s:colors.darkred        = { 'gui': '#b31d28', 'cterm': 124 } " github syntax
+let s:colors.orange         = { 'gui': '#e36209', 'cterm': 166 } " github syntax
+let s:colors.purple         = { 'gui': '#6f42c1', 'cterm': 61  } " github syntax
+let s:colors.darkpurple     = { 'gui': '#352650', 'cterm': 237 } " ^- darkened
+let s:colors.blue           = { 'gui': '#005cc5', 'cterm': 26  } " github syntax
+let s:colors.darkblue       = { 'gui': '#032f62', 'cterm': 17  } " ^- darkened
+let s:colors.yellow         = { 'gui': '#ffffc5', 'cterm': 230 } " github search
+let s:colors.green          = { 'gui': '#22863a', 'cterm': 29  } " github syntax (html)
+let s:colors.lightgreen     = { 'gui': '#e6ffed', 'cterm': 85  } " github diff
+let s:colors.lightred       = { 'gui': '#ffeef0', 'cterm': 167 } " github diff
+let s:colors.lightorange_nr = { 'gui': '#fff5b1', 'cterm': 229 } " github selected line number column
+let s:colors.lightorange    = { 'gui': '#fffbdd', 'cterm': 230 } " github selected line
+let s:colors.difftext       = { 'gui': '#f2e496', 'cterm': 222 } " ^- darkened
+let s:colors.lightblue      = { 'gui': '#f1f8ff', 'cterm': 231 } " github diff folds
+let s:colors.visualblue     = { 'gui': '#e4effb', 'cterm': 255 } " ^- darkened
+let s:colors.medblue        = { 'gui': '#b2ceec', 'cterm': 153 } " ^- darkened
 
 " to link to
 call s:Col('ghGreen', 'green')
