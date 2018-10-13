@@ -236,6 +236,22 @@ if g:github_colors_extra_functions == 1
   highlight def link ghPurpleFunc Function
 endif
 
+" vimL
+hi link vimHiTerm      ghBlack
+hi link vimHiGroup     ghOrange
+hi link vimUserFunc    ghPurple
+hi link vimCommand     Statement
+hi link vimNotFunc     Statement
+hi link vimGroup       Statement
+hi link vimHighlight   Identifier
+hi link vimAutoCmd     Identifier
+hi link vimAutoEvent   Identifier
+hi link vimSyntax      Identifier
+hi link vimSynType     Identifier
+hi link vimMap         Identifier
+hi link vimSet         Identifier
+hi link vimUserCommand Identifier
+
 hi link SpecialComment    Comment
 hi link Character         Number
 hi link CursorIM          Cursor
@@ -268,12 +284,6 @@ hi link rustIdentifier    Function
 " Plug 'neovimhaskell/haskell-vim'
 hi link haskellIdentifier Function
 hi link haskellType       Identifier
-"
-" hi link vimGroup          ghBlack
-hi link vimHiTerm         ghBlack
-hi link vimHiGroup        ghOrange
-hi link vimUserFunc       ghPurple
-
 
 " }}}
 
