@@ -2,6 +2,8 @@
 
 A Vim colorscheme based on Github's syntax highlighting as of 2018.
 
+## Install
+
 Install with your favourite plugin manager. For vim-plug:
 
 ```viml
@@ -11,27 +13,37 @@ Plug 'cormacrelf/vim-colors-github'
 Then set your colorscheme to 'github':
 
 ```viml
-" ~/.vimrc
+" in your .vimrc or init.vim
 colorscheme github
 
-" optional
+" if you use airline
 let g:airline_theme = "github"
+```
 
-" default is to extend a few languages' syntaxes to highlight function calls (eg c)
-" use this to disable
+## Options (place **before** the `colorscheme github`):
+
+```viml
+" use a slightly darker background, like GitHub inline code blocks
+let g:github_colors_soft = 1
+
+" default is to extend a few languages' syntaxes to highlight function calls
+" (eg c). use this to disable that.
 let g:github_colors_extra_functions = 0
-colorscheme github
 ```
 
 ## Screenshots
 
-### C
-
-![c](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/c.png)
-
 ### Rust
 
 ![rust](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/rust.png)
+
+### Soft mode (see above)
+
+![soft](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/soft.png)
+
+### C
+
+![c](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/c.png)
 
 ### Diff
 
