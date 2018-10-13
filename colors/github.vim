@@ -249,8 +249,9 @@ hi link vimAutoEvent   Identifier
 hi link vimSyntax      Identifier
 hi link vimSynType     Identifier
 hi link vimMap         Identifier
-hi link vimSet         Identifier
+hi link vimOption      Identifier
 hi link vimUserCommand Identifier
+hi link vimAugroupKey  Identifier
 
 hi link SpecialComment    Comment
 hi link Character         Number
