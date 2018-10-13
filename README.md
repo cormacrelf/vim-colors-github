@@ -27,15 +27,15 @@ colorscheme github
 
 ### C
 
-![c](example.com)
+![c](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/c.png)
 
 ### Rust
 
-![rust](example.com)
+![rust](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/rust.png)
 
 ### Diff
 
-![diff](example.com)
+![diff](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/diff.png)
 
 ## License
 
