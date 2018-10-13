@@ -2,6 +2,8 @@
 
 A Vim colorscheme based on Github's syntax highlighting as of 2018.
 
+I wasn't happy with [endel/vim-github-colorscheme](https://github.com/endel/vim-github-colorscheme), as it was out of date.
+
 ## Install
 
 Install with your favourite plugin manager. For vim-plug:
@@ -20,7 +22,9 @@ colorscheme github
 let g:airline_theme = "github"
 ```
 
-## Options (place **before** the `colorscheme github`):
+## Options
+
+Place **before** the `colorscheme github`:
 
 ```viml
 " use a slightly darker background, like GitHub inline code blocks
