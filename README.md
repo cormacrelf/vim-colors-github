@@ -4,6 +4,8 @@ A Vim colorscheme based on Github's syntax highlighting as of 2018.
 
 I wasn't happy with [endel/vim-github-colorscheme](https://github.com/endel/vim-github-colorscheme), as it was out of date.
 
+I haven't tried it non-gui mode, so contributions are welcome on that front. The infrastructure is there, you just have to choose cterms for the color map.
+
 ## Install
 
 Install with your favourite plugin manager. For vim-plug:
