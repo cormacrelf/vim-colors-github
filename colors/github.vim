@@ -12,11 +12,11 @@
 "           
 
 set background=light
-let colors_name = "github"
 hi clear
 if exists("syntax_on")
     syntax reset
 endif
+let colors_name = "github"
 
 if !exists("g:github_colors_extra_functions")
   let g:github_colors_extra_functions = 1
