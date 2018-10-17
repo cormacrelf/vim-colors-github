@@ -1,4 +1,5 @@
 " vim: set foldmethod=marker foldlevel=1 :
+" {{{ Preamble & vars
 "
 " Author:   Cormac Relf <web@cormacrelf.net>
 "
@@ -9,7 +10,6 @@
 " Usage:    colorscheme github
 "           " optional, if you use airline
 "           let g:airline_theme = "github"
-"
 
 set background=light
 hi clear
@@ -23,6 +23,10 @@ endif
 
 if !exists("g:github_colors_soft")
   let g:github_colors_soft = 0
+endif
+
+if !exists("g:github_colors_block_diffmark")
+  let g:github_colors_block_diffmark = 0
 endif
 
 let colors_name = "github"
@@ -76,132 +80,189 @@ function! s:Clear(group)
 endfunction
 
 " }}}
+" }}}
 
 " Colors {{{
 
-" let's store colors in a dictionary
+let s:lib = {}    " to build s:colors from, not to be used directly
+let s:colors = {} " the 'stable API' you can access through s:Col
 
-let s:colors = {}
+" color docs
+"   base0 = dark text fg
+"   base1 = dark solid
+"   base2 = comment
+"   base3 = darker gutter fg
+"   base4 = normal gutter fg
+"   grey0 = ui grey darker
+"   grey1 = ui grey medium
+"   grey2 = ui grey brighter
+"   gutter = linenr bg
+"   overlay = overlay background
+"   bg = bg
+"   visualblue = for visual selections
+"   lightblue  = for folds
 
-let s:colors.base0          = { 'gui': '#24292e', 'cterm': 235 } " github text fg
-let s:colors.base1          = { 'gui': '#41484f', 'cterm': 238 } " lightened from 0
-let s:colors.base2          = { 'gui': '#6a737d', 'cterm': 243 } " comment
-let s:colors.base3          = { 'gui': '#76787b', 'cterm': 243 } " github linenr darker
-let s:colors.base_35        = { 'gui': '#979797', 'cterm': 246 } " github linenr darker
-let s:colors.base4          = { 'gui': '#babbbc', 'cterm': 250 } " github linenr lighter
-let s:colors.base5          = { 'gui': '#dddddd', 'cterm': 253 } "
-let s:colors.base6          = { 'gui': '#ebeced', 'cterm': 255 } "
-let s:colors.base7          = { 'gui': '#f6f8fa', 'cterm': 231 } " github inline code block bg
-let s:colors.base8          = { 'gui': '#fafbfc', 'cterm': 231 } " github generic light
-let s:colors.white          = { 'gui': '#ffffff', 'cterm': 231 } "
+let s:lib.numDarkest = { 'gui': '#76787b', 'cterm': 243 }
+let s:lib.numMedium  = { 'gui': '#979797', 'cterm': 246 }
+let s:lib.numLighter = { 'gui': '#babbbc', 'cterm': 250 }
+let s:lib.c8d1db     = { 'gui': '#C8D1DB', 'cterm': 252 }
+let s:lib.d7dce1     = { 'gui': '#d7dce1', 'cterm': 253 }
+let s:lib.dde2e7     = { 'gui': '#dde2e7', 'cterm': 254 }
+let s:lib.e0e7ef     = { 'gui': '#e0e7ef', 'cterm': 254 }
+let s:lib.ebeced     = { 'gui': '#ebeced', 'cterm': 255 }
+let s:lib.eceef1     = { 'gui': '#ECEEF1', 'cterm': 255 }
+let s:lib.eaeff4     = { 'gui': '#eaeff4', 'cterm': 255 }
+let s:lib.f1f2f3     = { 'gui': '#f1f2f4', 'cterm': 255 }
+let s:lib.f6f8fa     = { 'gui': '#f6f8fa', 'cterm': 255 } " github inline code block bg
+let s:lib.fafbfc     = { 'gui': '#fafbfc', 'cterm': 255 } " github generic light
+let s:lib.white      = { 'gui': '#ffffff', 'cterm': 231 }
 
-if g:github_colors_soft == 1
-    let s:colors.bg         = s:colors.base7
-    let s:colors.uiline     = s:colors.base5
-    let s:colors.over       = s:colors.white
-    let s:colors.gutter     = s:colors.base6
-    let s:colors.gutterfg   = s:colors.base_35
-else
-    let s:colors.bg         = s:colors.white
-    let s:colors.uiline     = s:colors.base6
-    let s:colors.over       = s:colors.base7
-    let s:colors.gutter     = s:colors.base8
-    let s:colors.gutterfg   = s:colors.base4
-endif
+" 0, 1, 2 and 3 are constant
+let s:colors.base0   = { 'gui': '#24292e', 'cterm': 235 } " github text fg
+let s:colors.base1   = { 'gui': '#41484f', 'cterm': 238 } " lightened from 0
+let s:colors.base2   = { 'gui': '#6a737d', 'cterm': 243 } " github comment
+let s:colors.base3   = s:lib.numDarkest
 
+" actual colorful colors {{{
 let s:colors.red            = { 'gui': '#d73a49', 'cterm': 167 } " github syntax
 let s:colors.darkred        = { 'gui': '#b31d28', 'cterm': 124 } " github syntax
 let s:colors.orange         = { 'gui': '#e36209', 'cterm': 166 } " github syntax
 let s:colors.purple         = { 'gui': '#6f42c1', 'cterm': 61  } " github syntax
 let s:colors.darkpurple     = { 'gui': '#352650', 'cterm': 237 } " ^- darkened
-let s:colors.blue           = { 'gui': '#005cc5', 'cterm': 26  } " github syntax
-let s:colors.darkblue       = { 'gui': '#032f62', 'cterm': 17  } " ^- darkened
 let s:colors.yellow         = { 'gui': '#ffffc5', 'cterm': 230 } " github search
 let s:colors.green          = { 'gui': '#22863a', 'cterm': 29  } " github syntax (html)
+let s:colors.orange         = { 'gui': '#e36209', 'cterm': 166 } " github syntax
+let s:colors.lightgreen_nr  = { 'gui': '#cdffd8', 'cterm': 85  } " github diff
 let s:colors.lightgreen     = { 'gui': '#e6ffed', 'cterm': 85  } " github diff
+let s:colors.lightred_nr    = { 'gui': '#ffdce0', 'cterm': 167 } " github diff
 let s:colors.lightred       = { 'gui': '#ffeef0', 'cterm': 167 } " github diff
 let s:colors.lightorange_nr = { 'gui': '#fff5b1', 'cterm': 229 } " github selected line number column
 let s:colors.lightorange    = { 'gui': '#fffbdd', 'cterm': 230 } " github selected line
 let s:colors.difftext       = { 'gui': '#f2e496', 'cterm': 222 } " ^- darkened
-let s:colors.lightblue      = { 'gui': '#f1f8ff', 'cterm': 231 } " github diff folds
-let s:colors.visualblue     = { 'gui': '#e4effb', 'cterm': 255 } " ^- darkened
-let s:colors.medblue        = { 'gui': '#b2ceec', 'cterm': 153 } " ^- darkened
+let s:colors.darkblue       = { 'gui': '#032f62', 'cterm': 17  } " ^- darkened
+let s:colors.blue           = { 'gui': '#005cc5', 'cterm': 26  } " github syntax
+let s:colors.blue0          = { 'gui': '#669cc2', 'cterm': 153 }
+let s:colors.blue1          = { 'gui': '#c1daec', 'cterm': 153 }
+let s:colors.blue2          = { 'gui': '#e4effb', 'cterm': 153 }
+let s:colors.blue3          = { 'gui': '#bde0fb', 'cterm': 153 }
+let s:colors.blue4          = { 'gui': '#f1f8ff', 'cterm': 153 } " github diff folds
 
-" to link to
+" }}}
+
+if g:github_colors_soft == 0
+    let s:colors.grey0      = s:lib.dde2e7
+    let s:colors.grey1      = s:lib.eceef1
+    let s:colors.grey2      = s:lib.f6f8fa
+    let s:colors.overlay    = s:lib.f6f8fa
+    let s:colors.gutter     = s:lib.fafbfc
+    let s:colors.bg         = s:lib.white
+    let s:colors.base4      = s:lib.numLighter
+    let s:colors.visualblue = s:colors.blue2
+    let s:colors.lightblue  = s:colors.blue4
+else
+    let s:colors.grey0      = s:lib.c8d1db
+    let s:colors.grey1      = s:lib.dde2e7
+    let s:colors.grey2      = s:lib.e0e7ef
+    let s:colors.gutter     = s:lib.eaeff4
+    let s:colors.bg         = s:lib.f6f8fa
+    let s:colors.overlay    = s:lib.white
+    let s:colors.base4      = s:lib.numMedium
+    let s:colors.visualblue = s:colors.blue1
+    let s:colors.lightblue  = s:colors.blue2
+endif
+
+" named groups to link to {{{
+call s:Col('ghBackground', 'bg')
+call s:Col('ghBlack', 'base0')
+call s:Col('ghBase0', 'base0')
+call s:Col('ghBase1', 'base1')
+call s:Col('ghBase2', 'base2')
+call s:Col('ghBase3', 'base3')
+call s:Col('ghBase4', 'base4')
+call s:Col('ghGrey0', 'grey0')
+call s:Col('ghGrey1', 'grey1')
+call s:Col('ghGrey2', 'grey2')
 call s:Col('ghGreen', 'green')
+call s:Col('ghBlue', 'blue')
+call s:Col('ghBlue2', 'blue2')
+call s:Col('ghBlue3', 'blue3')
+call s:Col('ghBlue4', 'blue4')
+call s:Col('ghDarkBlue', 'darkblue')
+call s:Col('ghRed', 'red')
+call s:Col('ghDarkRed', 'darkred')
 call s:Col('ghPurple', 'purple')
 call s:Col('ghDarkPurple', 'darkpurple')
-call s:Col('ghBlack', 'base0')
-call s:Col('ghBlue', 'blue')
-call s:Col('ghDarkBlue', 'darkblue')
 call s:Col('ghOrange', 'orange')
 call s:Col('ghLightOrange', 'lightorange')
 call s:Col('ghYellow', 'yellow')
-call s:Col('ghRed', 'red')
-call s:Col('ghDarkRed', 'darkred')
 call s:Col('ghLightRed', 'lightred')
-call s:Col('ghLine', 'uiline')
-call s:Col('ghBase1', 'base1')
-call s:Col('ghOver', 'over')
+call s:Col('ghOver', 'overlay')
+" }}}
 
 " }}}
 
 " UI colors {{{
 
 call s:Col('Normal', 'base0', 'bg')
-call s:Col('Cursor', 'base8', 'base0')    " only if vim gets to render cursor
+call s:Col('Cursor', 'bg', 'base0')    " only if vim gets to render cursor
 call s:Col('Visual', '', 'visualblue')
 call s:Col('VisualNOS', '', 'lightblue')
 call s:Col('Search', '', 'yellow') | call s:Attr('Search', 'bold')
 call s:Col('Whitespace', 'base4', 'bg')   " listchars spaces, tab, ...
 call s:Col('NonText',    'base4', 'bg')   " listchars eol
 
-call s:Col('MatchParen', 'base0', 'medblue')
+call s:Col('MatchParen', 'darkblue', 'blue3')
+" | call s:Attr('MatchParen', 'bold')
+" call outer(inner(arg1, arg2, arg3))
+" call outer(inner, one, two(three, four))
 call s:Col('Conceal', 'red')
 call s:Col('SpecialKey', 'blue') | call s:Attr('SpecialKey', 'italic')
-call s:Col('WarningMsg', 'red')
-call s:Col('ErrorMsg', 'darkred', 'base8')
+call s:Col('WarningMsg', 'orange')
+call s:Col('ErrorMsg', 'darkred')
 call s:Col('Error', 'gutter', 'darkred')
 call s:Col('Title', 'blue')
 
-call s:Col('VertSplit',    'uiline', 'uiline')
-call s:Col('SignColumn',   'gutterfg',  'gutter')
-call s:Col('LineNr',       'gutterfg',  'gutter')
-call s:Col('ColorColumn',  '',       'base5')
-call s:Col('CursorLine',   '',       'lightorange')
+call s:Col('VertSplit',    'grey1', 'grey1')
+call s:Col('LineNr',       'base4',  'gutter')
+hi link     SignColumn       LineNr
+hi link     EndOfBuffer      LineNr
+call s:Col('ColorColumn',  '',       'grey2')
 call s:Col('CursorLineNR', 'base3',  'lightorange_nr')
-hi! link CursorColumn CursorLine
-" tildes at the bottom
-hi! link EndOfBuffer      LineNr
+call s:Col('CursorLine',   '',       'lightorange')
+call s:Col('CursorColumn', '',       'lightorange')
+call s:Col('QuickFixLine', '', 'blue3') | call s:Attr('QuickFixLine', 'bold')
+call s:Col('qfLineNr', 'base3', 'gutter')
 
-call s:Col('Folded', 'base3', 'lightblue')
-call s:Col('FoldColumn', 'medblue', 'gutter')
+call s:Col('Folded',     'base3', 'lightblue')
+call s:Col('FoldColumn', 'blue0', 'gutter')
 
-call s:Col('StatusLine',      'base8', 'base0')
-call s:Col('StatusLineNC',    'base3', 'gutter')
+call s:Col('StatusLine',      'grey2', 'base0')
+call s:Col('StatusLineNC',    'base3', 'grey1')
 " statusline determines inactive wildmenu entries too
-call s:Col('WildMenu', 'base8', 'blue')
+call s:Col('WildMenu', 'grey2', 'blue')
 
-call s:Col('airlineN1',       'uiline', 'base0')
-call s:Col('airlineN2',       'uiline', 'base1')
-call s:Col('airlineN3',       'base0',  'uiline')
-call s:Col('airlineInsert1',  'uiline', 'blue')
-call s:Col('airlineInsert2',  'uiline', 'darkblue')
-call s:Col('airlineVisual1',  'uiline', 'purple')
-call s:Col('airlineVisual2',  'uiline', 'darkpurple')
-call s:Col('airlineReplace1', 'uiline', 'red')
-call s:Col('airlineReplace2', 'uiline', 'darkred')
+call s:Col('airlineN1',       'grey1', 'base0')
+call s:Col('airlineN2',       'grey1', 'base1')
+call s:Col('airlineN3',       'base0',  'grey1')
+call s:Col('airlineInsert1',  'grey1', 'blue')
+call s:Col('airlineInsert2',  'grey1', 'darkblue')
+call s:Col('airlineVisual1',  'grey1', 'purple')
+call s:Col('airlineVisual2',  'grey1', 'darkpurple')
+call s:Col('airlineReplace1', 'grey1', 'red')
+call s:Col('airlineReplace2', 'grey1', 'darkred')
 
-call s:Col('Pmenu',      'base3', 'over')
-call s:Col('PmenuSel',   'over',  'blue') | call s:Attr('PmenuSel', 'bold')
-call s:Col('PmenuSbar',  '',      'over')
+call s:Col('Pmenu',      'base3', 'overlay')
+call s:Col('PmenuSel',   'overlay',  'blue') | call s:Attr('PmenuSel', 'bold')
+call s:Col('PmenuSbar',  '',      'overlay')
 call s:Col('PmenuThumb', '',      'blue')
+
 
 " hit enter to continue
 call s:Col('Question', 'green')
 
-call s:Col('TabLine',     'base1', 'uiline') | call s:Attr('TabLine', 'none')
-call s:Col('TabLineFill', 'base1', 'uiline') | call s:Attr('TabLineFill', 'none')
+call s:Col('TabLine',     'base1', 'grey1') | call s:Attr('TabLine', 'none')
+call s:Col('TabLineFill', 'base0', 'base0') | call s:Attr('TabLineFill', 'none')
+call s:Col('TabLineFill', 'grey0', 'grey0') | call s:Attr('TabLineFill', 'none')
 call s:Col('TabLineSel',  'base1'         ) | call s:Attr('TabLineSel', 'bold')
 
 call s:Col('DiffAdd',    '', 'lightgreen')
@@ -213,7 +274,7 @@ call s:Col('DiffText',   '', 'difftext')
 
 " {{{ Syntax highlighting
 
-call s:Clear('Ignore') | call s:Col('Ignore', 'bg', 'bg')
+call s:Clear('Ignore') | call s:Col('Ignore', 'base4', 'bg')
 call s:Col('Identifier', 'blue')
 call s:Col('PreProc', 'red')
 call s:Col('Macro', 'blue')
@@ -229,6 +290,7 @@ call s:Col('Special', 'purple')
 call s:Col('Label', 'base0')
 call s:Col('StorageClass', 'red')
 call s:Col('Structure', 'red')
+
 
 " Particular Languages {{{
 
@@ -319,9 +381,31 @@ hi link rustIdentifier    Function
 hi link haskellIdentifier Function
 hi link haskellType       Identifier
 
+" diff (language)
+call s:Col('diffFile',      'base0',    'grey2')
+call s:Col('diffNewFile',   'base0',    'grey2')
+call s:Col('diffIndexLine', 'darkblue', 'grey2')
+call s:Col('diffLine',      'base2',    'lightblue')
+call s:Col('diffSubname',   'darkblue', 'lightblue')
+call s:Col('diffAdded',     'green',    'lightgreen')
+call s:Col('diffRemoved',   'red',      'lightred')
+
 " }}}
 
 " Plugin Support {{{
+
+" GitGutter
+if g:github_colors_block_diffmark == 0
+  call s:Col('GitGutterAdd',          'green', 'gutter')
+  call s:Col('GitGutterChange',       'orange', 'gutter')
+  call s:Col('GitGutterDelete',       'darkred', 'gutter')
+  call s:Col('GitGutterChangeDelete', 'orange', 'gutter')
+else
+  call s:Col('GitGutterAdd',          'base3', 'lightgreen_nr')
+  call s:Col('GitGutterChange',       'base3', 'lightorange_nr')
+  call s:Col('GitGutterDelete',       'base3', 'lightred_nr')
+  call s:Col('GitGutterChangeDelete', 'red', 'lightorange_nr')
+endif
 
 " NERDTree
 hi link NERDTreeDir       ghBlue
@@ -330,12 +414,13 @@ hi link NERDTreeExecFile  ghPurple
 hi link NERDTreeFile      ghDarkBlue
 
 " Startify
+call s:Clear('Directory') " somehow it's linked to 'Blue' + bold?
 hi link Directory         ghBlue
 hi link StartifyPath      ghBlue
-hi link StartifyFile      ghPurple
+hi link StartifyHeader    ghBlue
 
 call s:Col('ghSneak', 'bg', 'purple')
-call s:Col('ghOverBg', '',  'over')
+call s:Col('ghOverBg', '',  'overlay')
 " vim-sneak
 hi link Sneak             ghSneak
 hi link SneakScope        ghOverBg
@@ -351,7 +436,7 @@ let g:fzf_colors = {
   \ 'bg+':     ['bg', 'CursorLine'],
   \ 'hl+':     ['fg', 'ghBlue'],
   \ 'info':    ['fg', 'ghRed'],
-  \ 'border':  ['fg', 'ghLine'],
+  \ 'border':  ['fg', 'ghGrey1'],
   \ 'prompt':  ['fg', 'ghBlue'],
   \ 'pointer': ['fg', 'ghRed'],
   \ 'marker':  ['fg', 'ghPurple'],
@@ -372,7 +457,7 @@ if has("spell")
   call s:Col('SpellLocal', 'yellow')
     \ | call s:Attr('SpellLocal', 'underline')
     " \ | call s:Spell('SpellLocal', 'yellow')
-  call s:Col('SpellRare', 'base5', 'purple')
+  call s:Col('SpellRare', 'grey2', 'purple')
     \ | call s:Attr('SpellRare', 'underline')
     " \ | call s:Spell('SpellRare', 'purple')
 endif

@@ -93,8 +93,7 @@ with open(r'/dev/stdin', 'r') as f:
         for line in f.readlines():
             fgm = fg.match(line)
             if fgm is not None:
-                line = (fgm.group(1) + BestMatch(fgm.group(2))
-                        + fgm.group(3) + "\n")
+                line = (BestMatch(fgm.group(2)) + "\n")
 
             ## -- print the line
             fout.write(line)

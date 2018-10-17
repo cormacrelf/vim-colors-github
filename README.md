@@ -6,6 +6,22 @@ I wasn't happy with [endel/vim-github-colorscheme](https://github.com/endel/vim-
 
 It degrades gracefully in non-gui mode (ie ctermbg/ctermfg/256colors).
 
+It supports the following **plugins**:
+[airline](https://github.com/vim-airline/vim-airline),
+[lightline](https://github.com/vim-airline/lightline),
+[fzf](https://github.com/junegunn/fzf),
+[GitGutter](https://github.com/airblade/vim-gitgutter),
+[NERDTree](https://github.com/scrooloose/nerdtree),
+[Startify](https://github.com/mhinz/vim-startify),
+[sneak](https://github.com/justinmk/vim-sneak).
+
+Extra tuning has been done for the following **languages**:
+VimL, Diff, C, Rust, Go (`fatih/vim-go`), Haskell 
+(`neovimhaskell/haskell-vim`),
+Ruby, Python, Html, Xml, Toml, Yaml, Typescript. Though be aware, GitHub 
+doesn't use many colors, so tuning is minimal.
+
+
 ## Install
 
 Install with your favourite plugin manager. For vim-plug:
@@ -20,8 +36,9 @@ Then set your colorscheme to 'github':
 " in your .vimrc or init.vim
 colorscheme github
 
-" if you use airline
+" if you use airline / lightline
 let g:airline_theme = "github"
+let g:lightline = { 'colorscheme': 'github' }
 ```
 
 ## Options
@@ -32,12 +49,12 @@ Place **before** the `colorscheme github`:
 " use a slightly darker background, like GitHub inline code blocks
 let g:github_colors_soft = 1
 
-" default is to extend a few languages' syntaxes to highlight function calls
-" (eg c). use this to disable that.
-let g:github_colors_extra_functions = 0
+" more blocky diff markers in signcolumn (e.g. GitGutter)
+let g:github_colors_block_diffmark = 0
+
+:help github_colors.txt
 ```
 
-## Screenshots
 
 ### Rust
 

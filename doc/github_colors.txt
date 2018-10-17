@@ -1,0 +1,43 @@
+*github_colors.txt*   Colorscheme based on GitHub's syntax highlighting
+
+|github-colors-options|            Available configuration options
+|github-colors-functions|          Functions
+
+==============================================================================
+CONFIGURATION OPTIONS                                  *github-colors-options*
+
+- *g:github_colors_soft*
+  default = 0
+
+  Uses a softer color palette with the same background as GitHub inline code
+  blocks.
+
+- *g:github_colors_extra_functions*
+  default = 1
+
+  Some language syntaxes need a little help to look like GitHub. By default,
+  a couple of extra syntax matchers are added.
+
+  - C wants blue functions
+  - JS / TypeScript want purple functions
+  - More might be added here later
+
+- *g:github_colors_block_diffmark*
+  default = 0
+
+  Make your diff markers (e.g. for GitGutter) look a bit more GitHub-y. This is
+  a bit more visually invasive than most are used to with a signcolumn, so it is
+  disabled by default.
+
+==============================================================================
+FUNCTIONS                                            *github-colors-functions*
+
+*github_colors#toggle_soft()*
+
+  Toggles soft mode. Also refreshes your lightline colours (with the slightly
+  tweaked greys). Example mapping:
+
+    nnoremap <f5> :call github_colors#toggle_soft()<cr>
+
+
+vim:tw=78:ts=8:ft=help:norl:
