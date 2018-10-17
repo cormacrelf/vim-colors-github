@@ -16,7 +16,6 @@ hi clear
 if exists("syntax_on")
     syntax reset
 endif
-let colors_name = "github"
 
 if !exists("g:github_colors_extra_functions")
   let g:github_colors_extra_functions = 1
@@ -25,6 +24,8 @@ endif
 if !exists("g:github_colors_soft")
   let g:github_colors_soft = 0
 endif
+
+let colors_name = "github"
 
 " Helper functions {{{
 " from vim-gotham
@@ -129,11 +130,19 @@ let s:colors.medblue        = { 'gui': '#b2ceec', 'cterm': 153 } " ^- darkened
 " to link to
 call s:Col('ghGreen', 'green')
 call s:Col('ghPurple', 'purple')
+call s:Col('ghDarkPurple', 'darkpurple')
 call s:Col('ghBlack', 'base0')
 call s:Col('ghBlue', 'blue')
 call s:Col('ghDarkBlue', 'darkblue')
 call s:Col('ghOrange', 'orange')
+call s:Col('ghLightOrange', 'lightorange')
+call s:Col('ghYellow', 'yellow')
 call s:Col('ghRed', 'red')
+call s:Col('ghDarkRed', 'darkred')
+call s:Col('ghLightRed', 'lightred')
+call s:Col('ghLine', 'uiline')
+call s:Col('ghBase1', 'base1')
+call s:Col('ghOver', 'over')
 
 " }}}
 
@@ -245,13 +254,6 @@ hi link tomlKey   ghBlack
 " yaml
 hi link yamlBlockMappingKey ghGreen
 
-" NERDTree
-hi link Directory        ghBlue
-hi link NERDTreeDir      ghBlue
-hi link NERDTreeCWD      ghRed
-hi link NERDTreeExecFile ghPurple
-hi link NERDTreeFile     ghDarkBlue
-
 if g:github_colors_extra_functions == 1
   " in C, functions are blue!
   au FileType c syntax match ghBlueFunc /\w\+\s*(/me=e-1,he=e-1
@@ -288,29 +290,73 @@ hi link shDeref           Identifier
 hi link shVariable        Function
 hi link perlSharpBang     Special
 hi link schemeFunc        Statement
+
+" typescript
 hi link typescriptBraces  ghBlack
 hi link typescriptBraces  ghBlack
 hi link typescriptParens  ghBlack
 
+" ruby
 hi link rubySharpBang     Special
 hi link rubyDefine        PreProc
 hi link rubyClass         PreProc
 hi link rubyConstant      Define
 hi link rubyInclude       PreProc
 
+" python
 hi link pythonBuiltin     Identifier
 
 " fatih/vim-go
-" you should enable more highlights from :h go-syntax
+" you can enable more highlights from :h go-syntax
 hi link goConstants       Constant
 hi link goFunctionCall    Identifier
 
+" rust
 hi link rustModPath       Define
 hi link rustIdentifier    Function
 
-" Plug 'neovimhaskell/haskell-vim'
+" neovimhaskell/haskell-vim
 hi link haskellIdentifier Function
 hi link haskellType       Identifier
+
+" }}}
+
+" Plugin Support {{{
+
+" NERDTree
+hi link NERDTreeDir       ghBlue
+hi link NERDTreeCWD       ghRed
+hi link NERDTreeExecFile  ghPurple
+hi link NERDTreeFile      ghDarkBlue
+
+" Startify
+hi link Directory         ghBlue
+hi link StartifyPath      ghBlue
+hi link StartifyFile      ghPurple
+
+call s:Col('ghSneak', 'bg', 'purple')
+call s:Col('ghOverBg', '',  'over')
+" vim-sneak
+hi link Sneak             ghSneak
+hi link SneakScope        ghOverBg
+hi link sneakLabel        ghSneak
+
+" fzf
+" + means the selected one
+let g:fzf_colors = {
+  \ 'fg':      ['fg', 'Comment'],
+  \ 'bg':      ['fg', 'ghOver'],
+  \ 'hl':      ['fg', 'ghBlue'],
+  \ 'fg+':     ['fg', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine'],
+  \ 'hl+':     ['fg', 'ghBlue'],
+  \ 'info':    ['fg', 'ghRed'],
+  \ 'border':  ['fg', 'ghLine'],
+  \ 'prompt':  ['fg', 'ghBlue'],
+  \ 'pointer': ['fg', 'ghRed'],
+  \ 'marker':  ['fg', 'ghPurple'],
+  \ 'spinner': ['fg', 'ghDarkBlue'],
+  \ 'header':  ['fg', 'ghDarkBlue'] }
 
 " }}}
 
