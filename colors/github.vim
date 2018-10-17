@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker :
+" vim: set foldmethod=marker foldlevel=1 :
 "
 " Author:   Cormac Relf <web@cormacrelf.net>
 "
@@ -9,7 +9,7 @@
 " Usage:    colorscheme github
 "           " optional, if you use airline
 "           let g:airline_theme = "github"
-"           
+"
 
 set background=light
 hi clear
@@ -89,7 +89,7 @@ let s:colors.base3          = { 'gui': '#76787b', 'cterm': 243 } " github linenr
 let s:colors.base_35        = { 'gui': '#979797', 'cterm': 246 } " github linenr darker
 let s:colors.base4          = { 'gui': '#babbbc', 'cterm': 250 } " github linenr lighter
 let s:colors.base5          = { 'gui': '#dddddd', 'cterm': 253 } "
-let s:colors.base6          = { 'gui': '#ebeced', 'cterm': 255 } " 
+let s:colors.base6          = { 'gui': '#ebeced', 'cterm': 255 } "
 let s:colors.base7          = { 'gui': '#f6f8fa', 'cterm': 231 } " github inline code block bg
 let s:colors.base8          = { 'gui': '#fafbfc', 'cterm': 231 } " github generic light
 let s:colors.white          = { 'gui': '#ffffff', 'cterm': 231 } "
@@ -140,13 +140,15 @@ call s:Col('ghRed', 'red')
 " UI colors {{{
 
 call s:Col('Normal', 'base0', 'bg')
-call s:Col('Cursor', 'base8', 'base0') " only if vim gets to render cursor
+call s:Col('Cursor', 'base8', 'base0')    " only if vim gets to render cursor
 call s:Col('Visual', '', 'visualblue')
 call s:Col('VisualNOS', '', 'lightblue')
 call s:Col('Search', '', 'yellow') | call s:Attr('Search', 'bold')
+call s:Col('Whitespace', 'base4', 'bg')   " listchars spaces, tab, ...
+call s:Col('NonText',    'base4', 'bg')   " listchars eol
 
 call s:Col('MatchParen', 'base0', 'medblue')
-call s:Col('Conceal', 'blue')
+call s:Col('Conceal', 'red')
 call s:Col('SpecialKey', 'blue') | call s:Attr('SpecialKey', 'italic')
 call s:Col('WarningMsg', 'red')
 call s:Col('ErrorMsg', 'darkred', 'base8')
@@ -161,7 +163,7 @@ call s:Col('CursorLine',   '',       'lightorange')
 call s:Col('CursorLineNR', 'base3',  'lightorange_nr')
 hi! link CursorColumn CursorLine
 " tildes at the bottom
-hi! link NonText      LineNr
+hi! link EndOfBuffer      LineNr
 
 call s:Col('Folded', 'base3', 'lightblue')
 call s:Col('FoldColumn', 'medblue', 'gutter')
@@ -202,7 +204,7 @@ call s:Col('DiffText',   '', 'difftext')
 
 " {{{ Syntax highlighting
 
-hi Ignore   ctermfg=8    guifg=#808080
+call s:Clear('Ignore') | call s:Col('Ignore', 'bg', 'bg')
 call s:Col('Identifier', 'blue')
 call s:Col('PreProc', 'red')
 call s:Col('Macro', 'blue')
@@ -219,7 +221,7 @@ call s:Col('Label', 'base0')
 call s:Col('StorageClass', 'red')
 call s:Col('Structure', 'red')
 
-" Optimisations {{{
+" Particular Languages {{{
 
 hi link cDefine Define
 
