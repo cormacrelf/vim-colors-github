@@ -210,13 +210,13 @@ call s:Col('VisualNOS', '', 'lightblue')
 call s:Col('Search', '', 'yellow') | call s:Attr('Search', 'bold')
 call s:Col('Whitespace', 'base4', 'bg')   " listchars spaces, tab, ...
 call s:Col('NonText',    'base4', 'bg')   " listchars eol
+call s:Col('SpecialKey', 'base4', 'bg')
+call s:Col('Conceal',    'red')
 
 call s:Col('MatchParen', 'darkblue', 'blue3')
 " | call s:Attr('MatchParen', 'bold')
 " call outer(inner(arg1, arg2, arg3))
 " call outer(inner, one, two(three, four))
-call s:Col('Conceal', 'red')
-call s:Col('SpecialKey', 'blue') | call s:Attr('SpecialKey', 'italic')
 call s:Col('WarningMsg', 'orange')
 call s:Col('ErrorMsg', 'darkred')
 call s:Col('Error', 'gutter', 'darkred')
