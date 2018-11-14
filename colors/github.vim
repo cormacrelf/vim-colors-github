@@ -70,7 +70,7 @@ function! s:Attr(group, attr)
 endfunction
 
 function! s:Spell(group, attr)
-  let l:attrs = [a:group, 'guisp=' . a:attr]
+  let l:attrs = [a:group, 'guisp=' . s:colors[a:attr].gui ]
   call s:Highlight(l:attrs)
 endfunction
 
@@ -126,12 +126,13 @@ let s:colors.base3   = s:lib.numDarkest
 " actual colorful colors {{{
 let s:colors.red            = { 'gui': '#d73a49', 'cterm': 167 } " github syntax
 let s:colors.darkred        = { 'gui': '#b31d28', 'cterm': 124 } " github syntax
-let s:colors.orange         = { 'gui': '#e36209', 'cterm': 166 } " github syntax
-let s:colors.purple         = { 'gui': '#6f42c1', 'cterm': 61  } " github syntax
-let s:colors.darkpurple     = { 'gui': '#352650', 'cterm': 237 } " ^- darkened
+let s:colors.purple         = { 'gui': '#6f42c1', 'cterm': 91  } " github syntax
+let s:colors.darkpurple     = { 'gui': '#45267d', 'cterm': 237 } " ^- darkened
 let s:colors.yellow         = { 'gui': '#ffffc5', 'cterm': 230 } " github search
 let s:colors.green          = { 'gui': '#22863a', 'cterm': 29  } " github syntax (html)
+let s:colors.boldgreen      = { 'gui': '#3ebc5c', 'cterm': 29  } " ^
 let s:colors.orange         = { 'gui': '#e36209', 'cterm': 166 } " github syntax
+let s:colors.boldorange     = { 'gui': '#f18338', 'cterm': 166 } " ^
 let s:colors.lightgreen_nr  = { 'gui': '#cdffd8', 'cterm': 85  } " github diff
 let s:colors.lightgreen     = { 'gui': '#e6ffed', 'cterm': 85  } " github diff
 let s:colors.lightred_nr    = { 'gui': '#ffdce0', 'cterm': 167 } " github diff
@@ -220,7 +221,8 @@ call s:Col('MatchParen', 'darkblue', 'blue3')
 call s:Col('WarningMsg', 'orange')
 call s:Col('ErrorMsg', 'darkred')
 call s:Col('Error', 'gutter', 'darkred')
-call s:Col('Title', 'blue')
+call s:Col('Title', 'base1')
+call s:Attr('Title', 'bold')
 
 call s:Col('VertSplit',    'grey1', 'grey1')
 call s:Col('LineNr',       'base4',  'gutter')
@@ -253,8 +255,8 @@ call s:Col('airlineReplace2', 'grey1', 'darkred')
 
 call s:Col('Pmenu',      'base3', 'overlay')
 call s:Col('PmenuSel',   'overlay',  'blue') | call s:Attr('PmenuSel', 'bold')
-call s:Col('PmenuSbar',  '',      'overlay')
-call s:Col('PmenuThumb', '',      'blue')
+call s:Col('PmenuSbar',  '',      'grey2')
+call s:Col('PmenuThumb', '',      'grey0')
 
 
 " hit enter to continue
@@ -269,6 +271,38 @@ call s:Col('DiffAdd',    '', 'lightgreen')
 call s:Col('DiffDelete', 'base4', 'lightred') | call s:Attr('DiffDelete', 'none')
 call s:Col('DiffChange', '', 'lightorange')
 call s:Col('DiffText',   '', 'difftext')
+
+" nvim :terminal mode
+if has('nvim')
+  let g:terminal_color_0 = s:colors.base4.gui
+  let g:terminal_color_8 = s:colors.base3.gui
+
+  let g:terminal_color_1 = s:colors.red.gui
+  let g:terminal_color_9 = s:colors.darkred.gui
+
+  let g:terminal_color_2 = s:colors.boldgreen.gui
+  let g:terminal_color_10 = s:colors.green.gui
+
+  let g:terminal_color_3 = s:colors.boldorange.gui
+  let g:terminal_color_11 = s:colors.orange.gui
+
+  let g:terminal_color_4 = s:colors.blue.gui
+  let g:terminal_color_12 = s:colors.darkblue.gui
+
+  let g:terminal_color_5 = s:colors.purple.gui
+  let g:terminal_color_13 = s:colors.darkpurple.gui
+
+  " should be "cyan", but this is good enough
+  let g:terminal_color_6 = s:colors.blue.gui
+  let g:terminal_color_14 = s:colors.darkblue.gui
+
+  let g:terminal_color_7 = s:colors.base1.gui
+  let g:terminal_color_15 = s:colors.base0.gui
+endif
+
+" Park this for later
+" https://terminal.sexy/#9vj6JCkuKCousx0oL4tF7Y1LAy9iRSZ9XL32yNHbNztB1zpJPrxc8YM4AFzFb0LBMuD73eLn
+" let @k = "\<c-w>l:so $VIM_INIT\<cr>:bd!\<cr>:vspl\<cr>:term\<cr>Afish\<cr>colortest.sh\<cr>ls\<cr>\<esc>\<c-w>h"
 
 " }}}
 
@@ -287,10 +321,10 @@ call s:Col('Statement', 'red')
 call s:Col('Type', 'red')
 call s:Col('Todo', 'purple') | call s:Attr('Todo', 'underline')
 call s:Col('Special', 'purple')
+call s:Col('SpecialComment', 'base0')
 call s:Col('Label', 'base0')
 call s:Col('StorageClass', 'red')
 call s:Col('Structure', 'red')
-
 
 " Particular Languages {{{
 
@@ -309,6 +343,19 @@ hi link htmlTagN    htmlTag
 hi link htmlTagName xmlTagName
 hi link htmlArg     xmlAttrib
 hi link htmlLink    Underlined
+
+" vim-jsx-pretty
+hi link jsxTag htmlTag
+hi link jsxCloseTag jsxTag
+hi link jsxCloseString jsxTag
+hi link jsxAttrib xmlAttrib
+hi link jsxEqual Operator
+hi link jsxTagName htmlTagName
+call s:Col('jsxComponentName', 'blue')
+" TODO: maybe make extra italics an option
+" call s:Attr('jsxComponentName', 'italic')
+" call s:Col('jsxAttrib', 'purple')
+" call s:Attr('jsxAttrib', 'italic')
 
 " toml
 hi link tomlTable ghPurple
@@ -342,7 +389,7 @@ hi link vimOption      Identifier
 hi link vimUserCommand Identifier
 hi link vimAugroupKey  Identifier
 
-hi link Delimiter         ghBlack
+hi link Delimiter         Normal
 hi link SpecialComment    Comment
 hi link Character         Number
 hi link CursorIM          Cursor
@@ -389,6 +436,32 @@ call s:Col('diffLine',      'base2',    'lightblue')
 call s:Col('diffSubname',   'darkblue', 'lightblue')
 call s:Col('diffAdded',     'green',    'lightgreen')
 call s:Col('diffRemoved',   'red',      'lightred')
+
+" vim-pandoc-syntax
+call s:Col('pandocAtxStart', 'base4')
+call s:Col('pandocOperator', 'red')
+call s:Col('pandocDelimitedCodeBlock', 'darkpurple')
+call s:Col('pandocNoFormatted', 'base0', 'gutter')
+call s:Col('pandocPCite', 'purple')
+call s:Col('pandocCitekey', 'purple')
+
+" tex
+call s:Col('texMath', 'blue')
+call s:Col('texStatement', 'red')
+call s:Col('texType', 'purple')
+hi link texSection Title
+
+" plain builtin markdown
+hi link htmlH Title
+hi link markdownListMarker pandocOperator
+hi link markdownCode pandocDelimitedCodeBlock
+hi link markdownRule Title
+hi link markdownHeadingDelimiter pandocAtxStart
+
+" clojure
+hi link clojureDefine Type
+hi link clojureKeyword Identifier
+hi link clojureMacro ghPurple
 
 " }}}
 

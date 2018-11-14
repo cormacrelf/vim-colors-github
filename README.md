@@ -6,20 +6,27 @@ I wasn't happy with [endel/vim-github-colorscheme](https://github.com/endel/vim-
 
 It degrades gracefully in non-gui mode (ie ctermbg/ctermfg/256colors).
 
-It supports the following **plugins**:
+It supports the following plugins:
 [airline](https://github.com/vim-airline/vim-airline),
 [lightline](https://github.com/vim-airline/lightline),
 [fzf](https://github.com/junegunn/fzf),
 [GitGutter](https://github.com/airblade/vim-gitgutter),
 [NERDTree](https://github.com/scrooloose/nerdtree),
 [Startify](https://github.com/mhinz/vim-startify),
-[sneak](https://github.com/justinmk/vim-sneak).
+[sneak](https://github.com/justinmk/vim-sneak),
+and `:terminal`.
 
-Extra tuning has been done for the following **languages**:
-VimL, Diff, C, Rust, Go (`fatih/vim-go`), Haskell 
-(`neovimhaskell/haskell-vim`),
-Ruby, Python, Html, Xml, Toml, Yaml, Typescript. Though be aware, GitHub 
-doesn't use many colors, so tuning is minimal.
+Extra tuning has been done for the following languages:
+VimL, Markdown, Pandoc Markdown 
+([vim-pandoc-syntax](https://github.com/vim-pandoc/vim-pandoc-syntax))
+Diff, C, Rust,
+Go ([fatih/vim-go](https://github.com/fatih/vim-go)),
+Haskell 
+([neovimhaskell/haskell-vim](https://github.com/neovimhaskell/haskell-vim)),
+Ruby, Python, HTML, XML, TOML, YAML, Clojure, Typescript,
+([leafgarland/vim-typescript](https://github.com/leafgarland/vim-typescript)),
+JSX/TSX 
+([MaxMEllon/vim-jsx-pretty](https://github.com/MaxMEllon/vim-jsx-pretty)),. 
 
 
 ## Install
