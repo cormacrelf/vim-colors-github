@@ -12,7 +12,10 @@
 "           let g:airline_theme = "github"
 
 set background=light
+
 hi clear
+hi clear SignColumn
+
 if exists("syntax_on")
     syntax reset
 endif
@@ -226,8 +229,8 @@ call s:Attr('Title', 'bold')
 
 call s:Col('VertSplit',    'grey1', 'grey1')
 call s:Col('LineNr',       'base4',  'gutter')
-hi! link     SignColumn       LineNr
-hi! link     EndOfBuffer      LineNr
+hi link     SignColumn       LineNr
+hi link     EndOfBuffer      LineNr
 call s:Col('ColorColumn',  '',       'grey2')
 call s:Col('CursorLineNR', 'base3',  'lightorange_nr')
 call s:Col('CursorLine',   '',       'lightorange')
@@ -328,7 +331,7 @@ call s:Col('Structure', 'red')
 
 " Particular Languages {{{
 
-hi! link cDefine Define
+hi link cDefine Define
 
 " html
 " xml doesn't recognise xmlEndTag->xmlTagName, so colour it all green
@@ -338,19 +341,19 @@ call s:Col('xmlTagName', 'green')
 call s:Col('xmlAttrib', 'purple')
 
 call s:Col('htmlTag', 'base0')
-hi! link htmlEndTag  htmlTag
-hi! link htmlTagN    htmlTag
-hi! link htmlTagName xmlTagName
-hi! link htmlArg     xmlAttrib
-hi! link htmlLink    Underlined
+hi link htmlEndTag  htmlTag
+hi link htmlTagN    htmlTag
+hi link htmlTagName xmlTagName
+hi link htmlArg     xmlAttrib
+hi link htmlLink    Underlined
 
 " vim-jsx-pretty
-hi! link jsxTag htmlTag
-hi! link jsxCloseTag jsxTag
-hi! link jsxCloseString jsxTag
-hi! link jsxAttrib xmlAttrib
-hi! link jsxEqual Operator
-hi! link jsxTagName htmlTagName
+hi link jsxTag htmlTag
+hi link jsxCloseTag jsxTag
+hi link jsxCloseString jsxTag
+hi link jsxAttrib xmlAttrib
+hi link jsxEqual Operator
+hi link jsxTagName htmlTagName
 call s:Col('jsxComponentName', 'blue')
 " TODO: maybe make extra italics an option
 " call s:Attr('jsxComponentName', 'italic')
@@ -358,10 +361,10 @@ call s:Col('jsxComponentName', 'blue')
 " call s:Attr('jsxAttrib', 'italic')
 
 " toml
-hi! link tomlTable ghPurple
-hi! link tomlKey   ghBlack
+hi link tomlTable ghPurple
+hi link tomlKey   ghBlack
 " yaml
-hi! link yamlBlockMappingKey ghGreen
+hi link yamlBlockMappingKey ghGreen
 
 if g:github_colors_extra_functions == 1
   " in C, functions are blue!
@@ -373,60 +376,60 @@ if g:github_colors_extra_functions == 1
 endif
 
 " vimL
-hi! link vimHiTerm      ghBlack
-hi! link vimHiGroup     ghOrange
-hi! link vimUserFunc    ghPurple
-hi! link vimCommand     Statement
-hi! link vimNotFunc     Statement
-hi! link vimGroup       Statement
-hi! link vimHighlight   Identifier
-hi! link vimAutoCmd     Identifier
-hi! link vimAutoEvent   Identifier
-hi! link vimSyntax      Identifier
-hi! link vimSynType     Identifier
-hi! link vimMap         Identifier
-hi! link vimOption      Identifier
-hi! link vimUserCommand Identifier
-hi! link vimAugroupKey  Identifier
+hi link vimHiTerm      ghBlack
+hi link vimHiGroup     ghOrange
+hi link vimUserFunc    ghPurple
+hi link vimCommand     Statement
+hi link vimNotFunc     Statement
+hi link vimGroup       Statement
+hi link vimHighlight   Identifier
+hi link vimAutoCmd     Identifier
+hi link vimAutoEvent   Identifier
+hi link vimSyntax      Identifier
+hi link vimSynType     Identifier
+hi link vimMap         Identifier
+hi link vimOption      Identifier
+hi link vimUserCommand Identifier
+hi link vimAugroupKey  Identifier
 
-hi! link Delimiter         Normal
-hi! link SpecialComment    Comment
-hi! link Character         Number
-hi! link CursorIM          Cursor
-hi! link cppSTL            Function
-hi! link cppSTLType        Type
-hi! link shDeref           Identifier
-hi! link shVariable        Function
-hi! link perlSharpBang     Special
-hi! link schemeFunc        Statement
+hi link Delimiter         Normal
+hi link SpecialComment    Comment
+hi link Character         Number
+hi link CursorIM          Cursor
+hi link cppSTL            Function
+hi link cppSTLType        Type
+hi link shDeref           Identifier
+hi link shVariable        Function
+hi link perlSharpBang     Special
+hi link schemeFunc        Statement
 
 " typescript
-hi! link typescriptBraces  ghBlack
-hi! link typescriptBraces  ghBlack
-hi! link typescriptParens  ghBlack
+hi link typescriptBraces  ghBlack
+hi link typescriptBraces  ghBlack
+hi link typescriptParens  ghBlack
 
 " ruby
-hi! link rubySharpBang     Special
-hi! link rubyDefine        PreProc
-hi! link rubyClass         PreProc
-hi! link rubyConstant      Define
-hi! link rubyInclude       PreProc
+hi link rubySharpBang     Special
+hi link rubyDefine        PreProc
+hi link rubyClass         PreProc
+hi link rubyConstant      Define
+hi link rubyInclude       PreProc
 
 " python
-hi! link pythonBuiltin     Identifier
+hi link pythonBuiltin     Identifier
 
 " fatih/vim-go
 " you can enable more highlights from :h go-syntax
-hi! link goConstants       Constant
-hi! link goFunctionCall    Identifier
+hi link goConstants       Constant
+hi link goFunctionCall    Identifier
 
 " rust
-hi! link rustModPath       Define
-hi! link rustIdentifier    Function
+hi link rustModPath       Define
+hi link rustIdentifier    Function
 
 " neovimhaskell/haskell-vim
-hi! link haskellIdentifier Function
-hi! link haskellType       Identifier
+hi link haskellIdentifier Function
+hi link haskellType       Identifier
 
 " diff (language)
 call s:Col('diffFile',      'base0',    'grey2')
@@ -449,19 +452,19 @@ call s:Col('pandocCitekey', 'purple')
 call s:Col('texMath', 'blue')
 call s:Col('texStatement', 'red')
 call s:Col('texType', 'purple')
-hi! link texSection Title
+hi link texSection Title
 
 " plain builtin markdown
-hi! link htmlH Title
-hi! link markdownListMarker pandocOperator
-hi! link markdownCode pandocDelimitedCodeBlock
-hi! link markdownRule Title
-hi! link markdownHeadingDelimiter pandocAtxStart
+hi link htmlH Title
+hi link markdownListMarker pandocOperator
+hi link markdownCode pandocDelimitedCodeBlock
+hi link markdownRule Title
+hi link markdownHeadingDelimiter pandocAtxStart
 
 " clojure
-hi! link clojureDefine Type
-hi! link clojureKeyword Identifier
-hi! link clojureMacro ghPurple
+hi link clojureDefine Type
+hi link clojureKeyword Identifier
+hi link clojureMacro ghPurple
 
 " }}}
 
@@ -481,23 +484,23 @@ else
 endif
 
 " NERDTree
-hi! link NERDTreeDir       ghBlue
-hi! link NERDTreeCWD       ghRed
-hi! link NERDTreeExecFile  ghPurple
-hi! link NERDTreeFile      ghDarkBlue
+hi link NERDTreeDir       ghBlue
+hi link NERDTreeCWD       ghRed
+hi link NERDTreeExecFile  ghPurple
+hi link NERDTreeFile      ghDarkBlue
 
 " Startify
 call s:Clear('Directory') " somehow it's linked to 'Blue' + bold?
-hi! link Directory         ghBlue
-hi! link StartifyPath      ghBlue
-hi! link StartifyHeader    ghBlue
+hi link Directory         ghBlue
+hi link StartifyPath      ghBlue
+hi link StartifyHeader    ghBlue
 
 call s:Col('ghSneak', 'bg', 'purple')
 call s:Col('ghOverBg', '',  'overlay')
 " vim-sneak
-hi! link Sneak             ghSneak
-hi! link SneakScope        ghOverBg
-hi! link sneakLabel        ghSneak
+hi link Sneak             ghSneak
+hi link SneakScope        ghOverBg
+hi link sneakLabel        ghSneak
 
 " fzf
 " + means the selected one
