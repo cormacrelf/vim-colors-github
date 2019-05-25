@@ -12,7 +12,10 @@
 "           let g:airline_theme = "github"
 
 set background=light
+
 hi clear
+hi clear SignColumn
+
 if exists("syntax_on")
     syntax reset
 endif
@@ -538,4 +541,3 @@ endif
 " }}}
 
 " }}}
-
