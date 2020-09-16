@@ -56,6 +56,9 @@ Place **before** the `colorscheme github`:
 " use a slightly darker background, like GitHub inline code blocks
 let g:github_colors_soft = 1
 
+" use the dark theme
+set background=dark
+
 " more blocky diff markers in signcolumn (e.g. GitGutter)
 let g:github_colors_block_diffmark = 0
 
