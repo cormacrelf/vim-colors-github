@@ -62,22 +62,29 @@ let g:github_colors_block_diffmark = 0
 :help github_colors.txt
 ```
 
+### Dark
 
-### Rust
+![Dark](shots/dark.png)
 
-![rust](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/rust.png)
+![Dark UI](shots/dark-ui-elements.png)
 
-### Soft mode (see above)
+![Dark Diff](shots/dark-diff.png)
 
-![soft](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/soft.png)
+### Light
 
-### C
+![Light](shots/light.png)
 
-![c](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/c.png)
+![Light UI](shots/light-ui-elements.png)
 
-### Diff
+![Light Diff](shots/light-diff.png)
 
-![diff](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/diff.png)
+### Soft
+
+![Soft](shots/soft.png)
+
+![Soft UI](shots/soft-ui-elements.png)
+
+![Soft Diff](shots/soft-diff.png)
 
 ## License
 
