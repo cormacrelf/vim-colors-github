@@ -62,6 +62,17 @@ let g:github_colors_block_diffmark = 0
 :help github_colors.txt
 ```
 
+### How to toggle background and also refresh the Lightline theme?
+
+There is a built-in background toggler that does this. Make a mapping for it 
+like so:
+
+```vim
+call github_colors#togglebg_map('<f5>')
+```
+
+## Screenshots
+
 ### Dark
 
 ![Dark](shots/dark.png)
