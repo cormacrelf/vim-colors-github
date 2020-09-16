@@ -177,6 +177,7 @@ let s:dcolors.blue1          = { 'gui': s:darklib.blues[5], 'cterm': 153 }
 let s:dcolors.blue2          = { 'gui': s:darklib.blues[4], 'cterm': 153 }
 let s:dcolors.blue3          = { 'gui': s:darklib.blues[5], 'cterm': 153 }
 let s:dcolors.lightorange    = { 'gui': '#49443e', 'cterm': 150 }
+let s:dcolors.difftext       = { 'gui': '#87663b', 'cterm': 150 }
 let s:dcolors.lightorange_nr = { 'gui': '#6f6456', 'cterm': 150 }
 let s:dcolors.lightgreen_nr  = { 'gui': '#5d8c6f', 'cterm': 85  } " github diff
 let s:dcolors.lightgreen     = { 'gui': '#374843', 'cterm': 85  } " github diff
