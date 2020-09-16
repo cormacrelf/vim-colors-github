@@ -11,7 +11,6 @@
 "           " optional, if you use airline
 "           let g:airline_theme = "github"
 
-set background=light
 hi clear
 if exists("syntax_on")
     syntax reset
@@ -30,6 +29,8 @@ if !exists("g:github_colors_block_diffmark")
 endif
 
 let colors_name = "github"
+
+let s:is_dark=(&background == 'dark')
 
 " Helper functions {{{
 " from vim-gotham
@@ -88,14 +89,15 @@ let s:lib = {}    " to build s:colors from, not to be used directly
 let s:colors = {} " the 'stable API' you can access through s:Col
 
 " color docs
-"   base0 = dark text fg
-"   base1 = dark solid
+" --light mode --------------- dark mode
+"   base0 = dark text fg     | lightest text fg
+"   base1 = dark solid       | light solid
 "   base2 = comment
 "   base3 = darker gutter fg
 "   base4 = normal gutter fg
-"   grey0 = ui grey darker
-"   grey1 = ui grey medium
-"   grey2 = ui grey brighter
+"   grey0 = ui grey darker   | ui grey lighter
+"   grey1 = ui grey medium   | ui grey medium
+"   grey2 = ui grey bright   | ui grey dark
 "   gutter = linenr bg
 "   overlay = overlay background
 "   bg = bg
@@ -107,7 +109,7 @@ let s:lib.numMedium  = { 'gui': '#979797', 'cterm': 246 }
 let s:lib.numLighter = { 'gui': '#babbbc', 'cterm': 250 }
 let s:lib.c8d1db     = { 'gui': '#C8D1DB', 'cterm': 252 }
 let s:lib.d7dce1     = { 'gui': '#d7dce1', 'cterm': 253 }
-let s:lib.dde2e7     = { 'gui': '#dde2e7', 'cterm': 254 }
+let s:lib.dde2e7     = { 'gui': '#C8CED6', 'cterm': 254 }
 let s:lib.e0e7ef     = { 'gui': '#e0e7ef', 'cterm': 254 }
 let s:lib.ebeced     = { 'gui': '#ebeced', 'cterm': 255 }
 let s:lib.eceef1     = { 'gui': '#ECEEF1', 'cterm': 255 }
@@ -116,12 +118,22 @@ let s:lib.f1f2f3     = { 'gui': '#f1f2f4', 'cterm': 255 }
 let s:lib.f6f8fa     = { 'gui': '#f6f8fa', 'cterm': 255 } " github inline code block bg
 let s:lib.fafbfc     = { 'gui': '#fafbfc', 'cterm': 255 } " github generic light
 let s:lib.white      = { 'gui': '#ffffff', 'cterm': 231 }
+let s:lib.base0      = { 'gui': '#24292e', 'cterm': 235 } " github text fg
+let s:lib.base05     = { 'gui': '#2b3137', 'cterm': 238 } " lightened from 0
+let s:lib.base05     = { 'gui': '#2d343a', 'cterm': 238 } " lightened from 0
+let s:lib.base1      = { 'gui': '#41484f', 'cterm': 238 } " lightened from 0
+let s:lib.base2      = { 'gui': '#6a737d', 'cterm': 243 } " github comment
+let s:lib.base3      = s:lib.numDarkest
 
-" 0, 1, 2 and 3 are constant
-let s:colors.base0   = { 'gui': '#24292e', 'cterm': 235 } " github text fg
-let s:colors.base1   = { 'gui': '#41484f', 'cterm': 238 } " lightened from 0
-let s:colors.base2   = { 'gui': '#6a737d', 'cterm': 243 } " github comment
-let s:colors.base3   = s:lib.numDarkest
+let s:lib.darktext     = [
+      \{ 'gui': '#fafbfc', 'cterm': 255 },
+      \{ 'gui': '#d2d4d6', 'cterm': 254 },
+      \{ 'gui': '#abaeb1', 'cterm': 251 },
+      \{ 'gui': '#868a8e', 'cterm': 251 },
+      \{ 'gui': '#63686c', 'cterm': 251 },
+      \{ 'gui': '#42474c', 'cterm': 251 },
+      \s:lib.base0
+      \]
 
 " actual colorful colors {{{
 let s:colors.red            = { 'gui': '#d73a49', 'cterm': 167 } " github syntax
@@ -147,29 +159,91 @@ let s:colors.blue1          = { 'gui': '#c1daec', 'cterm': 153 }
 let s:colors.blue2          = { 'gui': '#e4effb', 'cterm': 153 }
 let s:colors.blue3          = { 'gui': '#bde0fb', 'cterm': 153 }
 let s:colors.blue4          = { 'gui': '#f1f8ff', 'cterm': 153 } " github diff folds
+let s:colors.errorred       = { 'gui': '#b74951', 'cterm': 167 } " from darkred
+
+let s:darklib = {}
+let s:darklib.blues = ['#5295d4', '#4c81b5', '#456e98', '#3d5c7b', '#354a60', '#2d3846', '#23282d']
+
+let s:dcolors = {}
+let s:dcolors.red            = { 'gui': '#f16636', 'cterm': 167 }
+let s:dcolors.blue           = { 'gui': '#4dacfd', 'cterm': 167 }
+let s:dcolors.purple         = { 'gui': '#a280e2', 'cterm': 91  }
+let s:dcolors.purple         = { 'gui': '#a887e6', 'cterm': 91  }
+let s:dcolors.darkpurple     = { 'gui': '#8b71c1', 'cterm': 91  }
+let s:dcolors.darkblue       = { 'gui': '#aacce4', 'cterm': 167 }
+let s:dcolors.darkblue       = s:colors.blue1
+let s:dcolors.blue0          = { 'gui': s:darklib.blues[2], 'cterm': 153 }
+let s:dcolors.blue1          = { 'gui': s:darklib.blues[5], 'cterm': 153 }
+let s:dcolors.blue2          = { 'gui': s:darklib.blues[4], 'cterm': 153 }
+let s:dcolors.blue3          = { 'gui': s:darklib.blues[5], 'cterm': 153 }
+let s:dcolors.lightorange    = { 'gui': '#49443e', 'cterm': 150 }
+let s:dcolors.difftext       = { 'gui': '#87663b', 'cterm': 150 }
+let s:dcolors.lightorange_nr = { 'gui': '#6f6456', 'cterm': 150 }
+let s:dcolors.lightgreen_nr  = { 'gui': '#5d8c6f', 'cterm': 85  } " github diff
+let s:dcolors.lightgreen     = { 'gui': '#374843', 'cterm': 85  } " github diff
+let s:dcolors.lightred_nr    = { 'gui': '#8b6c73', 'cterm': 167 } " github diff
+let s:dcolors.lightred       = { 'gui': '#443e44', 'cterm': 167 } " github diff
+let s:dcolors.overlay        = { 'gui': '#353a3f', 'cterm': 123 }
+let s:dcolors.yellow         = { 'gui': '#595322', 'cterm': 230 } " github search
+let s:dcolors.green          = { 'gui': '#59b36f', 'cterm': 29  } " github syntax (html)
 
 " }}}
 
-if g:github_colors_soft == 0
-    let s:colors.grey0      = s:lib.dde2e7
-    let s:colors.grey1      = s:lib.eceef1
-    let s:colors.grey2      = s:lib.f6f8fa
-    let s:colors.overlay    = s:lib.f6f8fa
-    let s:colors.gutter     = s:lib.fafbfc
-    let s:colors.bg         = s:lib.white
-    let s:colors.base4      = s:lib.numLighter
-    let s:colors.visualblue = s:colors.blue2
-    let s:colors.lightblue  = s:colors.blue4
+if s:is_dark 
+  for pkey in keys(s:dcolors)
+    let s:colors[pkey] = s:dcolors[pkey]
+  endfor
+  " base0 is now darkest
+  let s:colors.base0        = s:lib.darktext[0]
+  let s:colors.base1        = s:lib.darktext[1]
+  let s:colors.base2        = s:lib.darktext[2]
+  let s:colors.base3        = s:lib.darktext[3]
+  let s:colors.base4        = s:lib.numDarkest
+
+  let s:colors.grey0        = s:lib.base3
+  let s:colors.grey1        = s:lib.base2
+  let s:colors.grey2        = s:lib.base1
+
+  let s:colors.uisplit      = s:lib.base2
+  let s:colors.bg           = s:lib.base0
+  let s:colors.fg           = s:lib.fafbfc
+  let s:colors.gutter       = s:lib.base05
+  let s:colors.endofbuf     = s:lib.base05
+  let s:colors.gutterfg     = s:colors.base2
+  let s:colors.lightblue    = s:dcolors.blue1
+  let s:colors.visualblue   = s:dcolors.blue2
 else
-    let s:colors.grey0      = s:lib.c8d1db
-    let s:colors.grey1      = s:lib.dde2e7
-    let s:colors.grey2      = s:lib.e0e7ef
-    let s:colors.gutter     = s:lib.eaeff4
-    let s:colors.bg         = s:lib.f6f8fa
-    let s:colors.overlay    = s:lib.white
-    let s:colors.base4      = s:lib.numMedium
-    let s:colors.visualblue = s:colors.blue1
-    let s:colors.lightblue  = s:colors.blue2
+  let s:colors.base0          = s:lib.base0
+  let s:colors.base1          = s:lib.base1
+  let s:colors.base2          = s:lib.base2
+  let s:colors.base3          = s:lib.base3
+  let s:colors.fg             = s:colors.base0
+  let s:colors.gutterfg       = s:colors.base3
+
+  if g:github_colors_soft == 0
+      let s:colors.grey0      = s:lib.dde2e7
+      let s:colors.grey1      = s:lib.eceef1
+      let s:colors.grey2      = s:lib.f6f8fa
+      let s:colors.overlay    = s:lib.f6f8fa
+      let s:colors.gutter     = s:lib.fafbfc
+      let s:colors.endofbuf   = s:colors.gutter " same
+      let s:colors.bg         = s:lib.white
+      let s:colors.base4      = s:lib.numLighter
+      let s:colors.visualblue = s:colors.blue2
+      let s:colors.lightblue  = s:colors.blue4
+  else
+      let s:colors.grey0      = s:lib.c8d1db
+      let s:colors.grey1      = s:lib.dde2e7
+      let s:colors.grey2      = s:lib.e0e7ef
+      let s:colors.gutter     = s:lib.eaeff4
+      let s:colors.endofbuf   = s:colors.gutter " same
+      let s:colors.bg         = s:lib.f6f8fa
+      let s:colors.overlay    = s:lib.white
+      let s:colors.base4      = s:lib.numMedium
+      let s:colors.visualblue = s:colors.blue1
+      let s:colors.lightblue  = s:colors.blue2
+  endif
+  let s:colors.uisplit        = s:colors.grey1
 endif
 
 " named groups to link to {{{
@@ -198,14 +272,15 @@ call s:Col('ghLightOrange', 'lightorange')
 call s:Col('ghYellow', 'yellow')
 call s:Col('ghLightRed', 'lightred')
 call s:Col('ghOver', 'overlay')
+call s:Col('ghUISplit', 'uisplit')
 " }}}
 
 " }}}
 
 " UI colors {{{
 
-call s:Col('Normal', 'base0', 'bg')
-call s:Col('Cursor', 'bg', 'base0')    " only if vim gets to render cursor
+call s:Col('Normal', 'fg', 'bg')
+call s:Col('Cursor', 'bg', 'fg')    " only if vim gets to render cursor
 call s:Col('Visual', '', 'visualblue')
 call s:Col('VisualNOS', '', 'lightblue')
 call s:Col('Search', '', 'yellow') | call s:Attr('Search', 'bold')
@@ -216,30 +291,31 @@ call s:Col('Conceal',    'red')
 
 call s:Col('MatchParen', 'darkblue', 'blue3')
 " | call s:Attr('MatchParen', 'bold')
-" call outer(inner(arg1, arg2, arg3))
-" call outer(inner, one, two(three, four))
 call s:Col('WarningMsg', 'orange')
-call s:Col('ErrorMsg', 'darkred')
-call s:Col('Error', 'gutter', 'darkred')
+call s:Col('ErrorMsg', 'errorred')
+" TODO: fix error in light mode
+call s:Col('Error', 'gutterfg', 'errorred')
 call s:Col('Title', 'base1')
 call s:Attr('Title', 'bold')
 
-call s:Col('VertSplit',    'grey1', 'grey1')
+call s:Col('VertSplit',    'uisplit', 'uisplit')
 call s:Col('LineNr',       'base4',  'gutter')
-hi link     SignColumn       LineNr
-hi link     EndOfBuffer      LineNr
+hi! link     SignColumn       LineNr
+call s:Col('EndOfBuffer',  'base4',  'endofbuf')
 call s:Col('ColorColumn',  '',       'grey2')
-call s:Col('CursorLineNR', 'base3',  'lightorange_nr')
+
+call s:Col('CursorLineNR', 'gutterfg',  'lightorange_nr')
 call s:Col('CursorLine',   '',       'lightorange')
 call s:Col('CursorColumn', '',       'lightorange')
-call s:Col('QuickFixLine', '', 'blue3') | call s:Attr('QuickFixLine', 'bold')
-call s:Col('qfLineNr', 'base3', 'gutter')
 
-call s:Col('Folded',     'base3', 'lightblue')
+call s:Col('QuickFixLine', '', 'blue3') | call s:Attr('QuickFixLine', 'bold')
+call s:Col('qfLineNr', 'gutterfg', 'gutter')
+
+call s:Col('Folded',     'gutterfg', 'lightblue')
 call s:Col('FoldColumn', 'blue0', 'gutter')
 
 call s:Col('StatusLine',      'grey2', 'base0')
-call s:Col('StatusLineNC',    'base3', 'grey1')
+call s:Col('StatusLineNC',    'gutterfg', 'grey1')
 " statusline determines inactive wildmenu entries too
 call s:Col('WildMenu', 'grey2', 'blue')
 
@@ -372,6 +448,8 @@ if g:github_colors_extra_functions == 1
   highlight def link ghPurpleFunc Function
 endif
 
+call s:Col('ghNormalNoBg', 'fg', '')
+
 " vimL
 hi link vimHiTerm      ghBlack
 hi link vimHiGroup     ghOrange
@@ -388,8 +466,9 @@ hi link vimMap         Identifier
 hi link vimOption      Identifier
 hi link vimUserCommand Identifier
 hi link vimAugroupKey  Identifier
+hi link vimParenSep    Delimiter
 
-hi link Delimiter         Normal
+hi link Delimiter         ghNormalNoBg
 hi link SpecialComment    Comment
 hi link Character         Number
 hi link CursorIM          Cursor
@@ -423,6 +502,10 @@ hi link goFunctionCall    Identifier
 " rust
 hi link rustModPath       Define
 hi link rustIdentifier    Function
+hi link rustAttribute     ghBase0
+hi link rustDerive        rustAttribute
+hi link rustDeriveTrait   ghDarkPurple
+hi link rustCommentLineDoc ghBase2
 
 " neovimhaskell/haskell-vim
 hi link haskellIdentifier Function
@@ -474,9 +557,9 @@ if g:github_colors_block_diffmark == 0
   call s:Col('GitGutterDelete',       'darkred', 'gutter')
   call s:Col('GitGutterChangeDelete', 'orange', 'gutter')
 else
-  call s:Col('GitGutterAdd',          'base3', 'lightgreen_nr')
-  call s:Col('GitGutterChange',       'base3', 'lightorange_nr')
-  call s:Col('GitGutterDelete',       'base3', 'lightred_nr')
+  call s:Col('GitGutterAdd',          'gutterfg', 'lightgreen_nr')
+  call s:Col('GitGutterChange',       'gutterfg', 'lightorange_nr')
+  call s:Col('GitGutterDelete',       'gutterfg', 'lightred_nr')
   call s:Col('GitGutterChangeDelete', 'red', 'lightorange_nr')
 endif
 
@@ -515,6 +598,23 @@ let g:fzf_colors = {
   \ 'marker':  ['fg', 'ghPurple'],
   \ 'spinner': ['fg', 'ghDarkBlue'],
   \ 'header':  ['fg', 'ghDarkBlue'] }
+
+" Coc
+call s:Col('CocHighlightText', '', 'gutter')
+
+call s:Col('CocErrorSign', 'gutter', 'errorred')
+call s:Attr('CocErrorSign', 'bold')
+call s:Col('CocErrorHighlight', '', 'lightred')
+call s:Attr('CocErrorHighlight', 'underline')
+
+call s:Col('CocWarningHighlight', '', 'lightorange')
+call s:Attr('CocWarningHighlight', 'underline')
+call s:Col('CocWarningSign', 'orange', 'gutter')
+
+call s:Col('CocInfoSign', 'blue', 'gutter')
+call s:Col('CocInfoHighlight', '', 'lightblue')
+
+call s:Col('CocHintSign', 'base4', 'gutter')
 
 " }}}
 

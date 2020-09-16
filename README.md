@@ -62,22 +62,40 @@ let g:github_colors_block_diffmark = 0
 :help github_colors.txt
 ```
 
+### How to toggle background and also refresh the Lightline theme?
 
-### Rust
+There is a built-in background toggler that does this. Make a mapping for it 
+like so:
 
-![rust](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/rust.png)
+```vim
+call github_colors#togglebg_map('<f5>')
+```
 
-### Soft mode (see above)
+## Screenshots
 
-![soft](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/soft.png)
+### Dark
 
-### C
+![Dark](shots/dark.png)
 
-![c](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/c.png)
+![Dark UI](shots/dark-ui-elements.png)
 
-### Diff
+![Dark Diff](shots/dark-diff.png)
 
-![diff](https://raw.githubusercontent.com/cormacrelf/vim-colors-github/master/shots/diff.png)
+### Light
+
+![Light](shots/light.png)
+
+![Light UI](shots/light-ui-elements.png)
+
+![Light Diff](shots/light-diff.png)
+
+### Soft
+
+![Soft](shots/soft.png)
+
+![Soft UI](shots/soft-ui-elements.png)
+
+![Soft Diff](shots/soft-diff.png)
 
 ## License
 
