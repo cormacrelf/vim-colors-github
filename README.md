@@ -17,7 +17,7 @@ It supports the following plugins:
 and `:terminal`.
 
 Extra tuning has been done for the following languages:
-VimL, Markdown, Pandoc Markdown 
+Vim script, Markdown, Pandoc Markdown 
 ([vim-pandoc-syntax](https://github.com/vim-pandoc/vim-pandoc-syntax))
 Diff, C, Rust,
 Go ([fatih/vim-go](https://github.com/fatih/vim-go)),
@@ -33,13 +33,13 @@ JSX/TSX
 
 Install with your favourite plugin manager. For vim-plug:
 
-```viml
+```vim
 Plug 'cormacrelf/vim-colors-github'
 ```
 
 Then set your colorscheme to 'github':
 
-```viml
+```vim
 " in your .vimrc or init.vim
 colorscheme github
 
@@ -52,7 +52,7 @@ let g:lightline = { 'colorscheme': 'github' }
 
 Place **before** the `colorscheme github`:
 
-```viml
+```vim
 " use a slightly darker background, like GitHub inline code blocks
 let g:github_colors_soft = 1
 
