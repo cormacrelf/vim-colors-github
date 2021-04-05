@@ -74,6 +74,15 @@ like so:
 call github_colors#togglebg_map('<f5>')
 ```
 
+### Italicize comments
+
+If your terminal supports italics, place the line below **after** the
+`colorscheme github`:
+
+```vim
+hi Comment gui=italic cterm=italic term=italic
+```
+
 ## Screenshots
 
 ### Dark
