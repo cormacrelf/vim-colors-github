@@ -374,6 +374,33 @@ if has('nvim')
 
   let g:terminal_color_7 = s:colors.base1.gui
   let g:terminal_color_15 = s:colors.base0.gui
+elseif has('gui_running') || &termguicolors
+  " For Vim.
+  let g:terminal_ansi_colors = repeat([0], 16)
+
+  let g:terminal_ansi_colors[0] = s:colors.base4.gui
+  let g:terminal_ansi_colors[8] = s:colors.base3.gui
+
+  let g:terminal_ansi_colors[1] = s:colors.red.gui
+  let g:terminal_ansi_colors[9] = s:colors.darkred.gui
+
+  let g:terminal_ansi_colors[2] = s:colors.boldgreen.gui
+  let g:terminal_ansi_colors[10] = s:colors.green.gui
+
+  let g:terminal_ansi_colors[3] = s:colors.boldorange.gui
+  let g:terminal_ansi_colors[11] = s:colors.orange.gui
+
+  let g:terminal_ansi_colors[4] = s:colors.blue.gui
+  let g:terminal_ansi_colors[12] = s:colors.darkblue.gui
+
+  let g:terminal_ansi_colors[5] = s:colors.purple.gui
+  let g:terminal_ansi_colors[13] = s:colors.darkpurple.gui
+
+  let g:terminal_ansi_colors[6] = s:colors.blue.gui
+  let g:terminal_ansi_colors[14] = s:colors.darkblue.gui
+
+  let g:terminal_ansi_colors[7] = s:colors.base1.gui
+  let g:terminal_ansi_colors[15] = s:colors.base0.gui
 endif
 
 " Park this for later
